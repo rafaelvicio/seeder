@@ -13,18 +13,15 @@ defmodule Seeder do
         IO.inspect(matchsSeed)
     end
 
-    def calculateSeed(teams) do
+    defp calculateSeed(teams) do
         teams
         |> Enum.sort_by(fn team -> String.to_integer(team.points) end)
     end
 
-    def build(list), do: do_build(list, [])
-
     defp do_build([], result), do: result
     defp do_build([a, b | rest], result), do: do_build(rest, [%Match{team1: a, team2: b} | result])
-    defp do_build(_, _), do: raise "Odd number of elements in list"
 
-    def calculateMatchs(teams) do
+    defp calculateMatchs(teams) do
         do_build(teams, [])
     end
 end
