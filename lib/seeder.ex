@@ -19,7 +19,12 @@ defmodule Seeder do
   end
 
   defp do_build([], result), do: result
-  defp do_build([a, b | rest], result), do: do_build(rest, [%Match{team1: a, team2: b} | result])
+
+  defp do_build([a | rest], result) do
+    b = List.last(rest)
+    novaList = List.delete(rest, b)
+    do_build(novaList, [%Match{team1: a, team2: b} | result])
+  end
 
   defp calculateMatchs(teams) do
     do_build(teams, [])
